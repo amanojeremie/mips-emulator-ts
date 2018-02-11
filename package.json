@@ -1,0 +1,17 @@
+{
+  "name": "mips-emulator-ts",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeremie Amano",
+  "devDependencies": {
+    "browserify": "^16.0.0",
+    "gulp": "^3.9.1",
+    "gulp-pug": "^3.3.0",
+    "gulp-sass": "^3.1.0",
+    "tsify": "^3.0.4",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}

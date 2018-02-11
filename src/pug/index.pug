@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+	head
+		title MIPS - Assembler &amp; Emulator
+		link(href='style.css' rel='stylesheet')
+		script(src='bundle.js')
+	body
+		article
+			h2 MIPS - Assembler &amp; Emulator: #[a(href='https://github.com/amanojeremie/mips-emulator-ts') Source]
+			textarea(id='asm' cols='80' rows='16')
+			div
+				button(onclick='asm()') Run
+				button(onclick='clearOutput()') Clear Output
+			p Standrard Output
+			textarea(id='stdout' cols='80' rows='16' readonly)
+			p Standard Error
+			textarea(id='stderr' cols='80' rows='16' readonly)

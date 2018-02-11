@@ -1,0 +1,35 @@
+$primary-color: #26304f;
+$secondary-color: #14b99a;
+
+html, body {
+	font-family: 'Lato', sans-serif;
+	background-color: $primary-color;
+}
+
+a, a:hover, a:focus {
+	color: $secondary-color;
+	text-decoration: none;
+}
+
+button {
+	background-color: $secondary-color;
+	color: $primary-color;
+	margin: .1em;
+	font-size: 16px;
+	padding: 15px 32px;
+	border: none;
+	text-decoration: none;
+	text-align: center;
+	display: inline-block;
+}
+
+article {
+	margin: auto;
+	display: block;
+	width: 50%;
+	color: white;
+}
+
+textarea {
+	resize: none;
+}
