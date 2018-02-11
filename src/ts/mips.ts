@@ -78,14 +78,14 @@ export class mips {
 
 	private execute(instruction: number) {
 		instruction &= 0xFFFFFFFF;;
-		let opcode = instruction >>> insShift & 0xFF;
+		let opcode = instruction >>> insShift;
 		switch(opcode) {
 			case 0x00: {
-				let rs = (instruction & rsMask) >> rsShift & 0x1F;
-				let rt = (instruction & rtMask) >> rtShift & 0x1F;
-				let rd = (instruction & rdMask) >> rdShift & 0x1F;
-				let shm = (instruction & shmMask) >> shmShift & 0xFF;
-				let fun = instruction & funMask & 0xFF;
+				let rs = (instruction & rsMask) >> rsShift;
+				let rt = (instruction & rtMask) >> rtShift;
+				let rd = (instruction & rdMask) >> rdShift;
+				let shm = (instruction & shmMask) >> shmShift;
+				let fun = instruction & funMask;
 				this.r(opcode, rs, rt, rd, shm, fun);
 				break;
 			}
@@ -101,57 +101,57 @@ export class mips {
 				break;
 			}
 			case 0x08: { //ADDI
-				let rs = (instruction & rsMask) >> rsShift & 0x1F;
-				let rt = (instruction & rtMask) >> rtShift & 0x1F;
+				let rs = (instruction & rsMask) >> rsShift;
+				let rt = (instruction & rtMask) >> rtShift;
 				let imm = instruction & immMask;
-				imm = (imm & immSignMask) ? -(~imm & 0xFFFF) - 1 : imm;
+				imm = (imm & immSignMask) ? -(~imm) - 1 : imm;
 				this.registers[rs] = this.registers[rt] + imm & 0xFFFFFFFF;
 				this.pc++;
 				break;
 			}
 			case 0x09: { //ADDIU
-				let rs = (instruction & rsMask) >> rsShift & 0x1F;
-				let rt = (instruction & rtMask) >> rtShift & 0x1F;
+				let rs = (instruction & rsMask) >> rsShift;
+				let rt = (instruction & rtMask) >> rtShift;
 				let imm = (instruction & immMask) >>> 0;
 				this.registers[rs] = ((this.registers[rt] >>> 0) + imm & 0xFFFFFFFF) >>> 0;
 				this.pc++;
 				break;
 			}
 			case 0x0C: { //ANDI
-				let rs = (instruction & rsMask) >> rsShift & 0x1F;
-				let rt = (instruction & rtMask) >> rtShift & 0x1F;
+				let rs = (instruction & rsMask) >> rsShift;
+				let rt = (instruction & rtMask) >> rtShift;
 				let imm = (instruction & immMask);
 				this.registers[rt] = this.registers[rs] & imm;
 				this.pc++;
 				break;
 			}
 			case 0x0D: { //ORI
-				let rs = (instruction & rsMask) >> rsShift & 0x1F;
-				let rt = (instruction & rtMask) >> rtShift & 0x1F;
+				let rs = (instruction & rsMask) >> rsShift;
+				let rt = (instruction & rtMask) >> rtShift;
 				let imm = (instruction & immMask);
 				this.registers[rt] = this.registers[rs] | imm;
 				this.pc++;
 				break;
 			}
 			case 0x0E: { //XORI
-				let rs = (instruction & rsMask) >> rsShift & 0x1F;
-				let rt = (instruction & rtMask) >> rtShift & 0x1F;
+				let rs = (instruction & rsMask) >> rsShift;
+				let rt = (instruction & rtMask) >> rtShift;
 				let imm = (instruction & immMask);
 				this.registers[rt] = this.registers[rs] ^ imm;
 				this.pc++;
 				break;
 			}
 			case 0x23: { //LW
-				let rs = (instruction & rsMask) >> rsShift & 0x1F;
-				let rt = (instruction & rtMask) >> rtShift & 0x1F;
+				let rs = (instruction & rsMask) >> rsShift;
+				let rt = (instruction & rtMask) >> rtShift;
 				let imm = (instruction & immMask) >>> 0;
 				this.registers[rt] = this.memory[(this.registers[rs] / 4) + Math.floor(imm / 4)];
 				this.pc++;
 				break;
 			}
 			case 0x2B: { //SW
-				let rs = (instruction & rsMask) >> rsShift & 0x1F;
-				let rt = (instruction & rtMask) >> rtShift & 0x1F;
+				let rs = (instruction & rsMask) >> rsShift;
+				let rt = (instruction & rtMask) >> rtShift;
 				let imm = (instruction & immMask) >>> 0;
 				this.memory[Math.floor(this.registers[rs] / 4) + Math.floor(imm / 4)] = this.registers[rt];
 				this.pc++;
