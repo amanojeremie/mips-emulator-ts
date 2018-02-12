@@ -6,6 +6,7 @@ const rsShift = 21;
 const rtShift = 16;
 const rdShift = 11;
 const shmShift = 6;
+const immMagnitude = 1 << 16;
 const immMask = ((1 << 16) - 1);
 const immSignMask = (1 << 15);
 const signBitMask = (1 << 31);
@@ -77,7 +78,7 @@ export class mips {
 	}
 
 	private execute(instruction: number) {
-		instruction &= 0xFFFFFFFF;;
+		instruction &= 0xFFFFFFFF;
 		let opcode = instruction >>> insShift;
 		switch(opcode) {
 			case 0x00: {
@@ -104,7 +105,7 @@ export class mips {
 				let rs = (instruction & rsMask) >> rsShift;
 				let rt = (instruction & rtMask) >> rtShift;
 				let imm = instruction & immMask;
-				imm = (imm & immSignMask) ? -(~imm) - 1 : imm;
+				imm = (imm & immSignMask) ? imm - immMagnitude : imm;
 				this.registers[rs] = this.registers[rt] + imm & 0xFFFFFFFF;
 				this.pc++;
 				break;
@@ -229,7 +230,7 @@ export class mips {
 				this.pc++;
 				break;
 			}
-			case 0x20: { //AND
+			case 0x20: { //ADD
 				this.registers[rs] = this.registers[rt] + this.registers[rd] & 0xFFFFFFFF;
 				this.pc++;
 				break;
